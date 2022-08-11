@@ -4,18 +4,20 @@ import requests
 
 app = Flask(__name__)
 
-
+poke_types = []
 @app.route('/', methods=['GET', 'POST'])
 def pokedex():
     if request.method == 'POST':
-
-        poke = request.form.get('poke').lower()
-
-        url = f'https://pokeapi.co/api/v2/pokemon/{poke}'
-        response = requests.get(url)
-        data = json.loads(response.text)
-        poke_types = []
         try:
+           poke = request.form.get('poke').lower()
+
+           url = f'https://pokeapi.co/api/v2/pokemon/{poke}'
+
+           response = requests.get(url)
+
+           data = json.loads(response.text)
+
+
            for item in data['types']:
         # Se o pokemon tiver mais de um tipo é adicionado na lista
             poke_types.append(item['type']['name'])
